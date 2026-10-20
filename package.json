@@ -1,0 +1,55 @@
+{
+  "name": "@tody/voiceagent",
+  "version": "2.0.0",
+  "description": "Enterprise AI Voice Sales Assistant & Interactive Demo HUD Engine — Production SDK, VieNeu-TTS Studio & Claude/Gemini Skill",
+  "author": "tody-agent",
+  "license": "MIT",
+  "homepage": "https://github.com/tody-agent/voiceagent#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tody-agent/voiceagent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tody-agent/voiceagent/issues"
+  },
+  "keywords": [
+    "voice-agent",
+    "ai-sales",
+    "voice-sales-assistant",
+    "landing-page",
+    "interactive-demo",
+    "vieneu-tts",
+    "speech-synthesis",
+    "conversion-rate-optimization",
+    "voice-hud",
+    "claude-skill",
+    "gemini-skill"
+  ],
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:sdk": "cd packages/voice-sales-sdk && tsc",
+    "voice:pack": "node packages/voice-sales-sdk/tools/generate_voice_pack.mjs",
+    "server": "tsx server/index.ts",
+    "lint": "tsc --noEmit",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "lucide-react": "^0.546.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.0"
+  }
+}

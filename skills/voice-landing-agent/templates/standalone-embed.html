@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mẫu Landing Page Tích Hợp Voice Sales Assistant</title>
+  <style>
+    :root {
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --border: #E4E4E7;
+      --text: #09090B;
+      --text-muted: #71717A;
+      --primary: #18181B;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 20px 120px 20px;
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 0;
+    }
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto 24px auto;
+    }
+    .demo-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .tody-highlight-ring {
+      outline: 2px solid #4A90E2;
+      box-shadow: 0 0 20px rgba(74, 144, 226, 0.35);
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section id="hero-section" data-voice-target="hero" class="hero">
+      <h1>Giải Pháp Đột Phá Cho Công Việc Của Bạn</h1>
+      <p>Trải nghiệm công nghệ tương tác thông minh mới nhất trên nền tảng web.</p>
+      <a href="#pricing-section" class="btn-primary">Dùng thử miễn phí</a>
+    </section>
+
+    <section id="interactive-demo-section" data-voice-target="demo" class="demo-box">
+      <h2>Màn Hình Demo Tương Tác Trực Tiếp</h2>
+      <p style="color: var(--text-muted);">Trợ lý giọng nói sẽ tự động cuộn trang và kích hoạt tính năng tại đây.</p>
+      <div id="demo-status" style="font-weight: 600; margin-top: 16px; color: #4A90E2;">
+        Trạng thái: Đang chờ trợ lý giọng nói...
+      </div>
+    </section>
+
+    <section id="pricing-section" data-voice-target="offer" class="demo-box">
+      <h2>Bảng Giá & Ưu Đãi Đăng Ký</h2>
+      <p style="color: var(--text-muted);">14 ngày dùng thử miễn phí, không cần thẻ tín dụng.</p>
+      <a id="cta-btn" href="https://example.com/signup" class="btn-primary">Bắt đầu ngay hôm nay</a>
+    </section>
+  </div>
+
+  <script src="/sdk/tody-voice-sales.js"></script>
+
+  <script>
+    window.TodyVoice.init({
+      projectId: 'demo-landing',
+      locale: 'vi-VN',
+      audioBaseUrl: '/audio/vi',
+      brand: {
+        assistantName: 'Tody Voice',
+        assistantRole: 'Tư vấn & Trình diễn',
+        inviteTitle: 'Chào bạn, mình là Tody 👋',
+        inviteBody: 'Nghe mình giới thiệu & trình diễn sản phẩm trong 30 giây nhé?'
+      },
+      offer: {
+        productName: 'My Product',
+        primaryCtaLabel: 'Dùng thử 14 ngày miễn phí',
+        primaryCtaUrl: 'https://example.com/signup'
+      },
+      nodes: {
+        welcome: {
+          id: 'welcome',
+          audioId: 'welcome',
+          transcript: 'Chào bạn! Mình là Tody. Bạn muốn xem màn hình Demo thực tế hay xem bảng giá ưu đãi?',
+          stage: 'greeting',
+          choices: [
+            { id: 'c1', label: 'Xem trình diễn Demo ngay', next: 'demo' },
+            { id: 'c2', label: 'Xem ưu đãi đăng ký', next: 'offer' }
+          ]
+        },
+        demo: {
+          id: 'demo',
+          audioId: 'show_demo',
+          transcript: 'Mình đang mở màn hình Demo tương tác ngay trước mắt bạn.',
+          stage: 'demo',
+          compactDuringDemo: true,
+          visualAction: { type: 'scrollToSection', target: 'interactive-demo-section' },
+          choices: [
+            { id: 'c3', label: 'Nhận ưu đãi đăng ký', next: 'offer' },
+            { id: 'c4', label: 'Nghe lại từ đầu', next: 'welcome' }
+          ]
+        },
+        offer: {
+          id: 'offer',
+          audioId: 'offer',
+          transcript: 'Bấm vào nút đăng ký dùng thử bên dưới để bắt đầu trải nghiệm nhé!',
+          stage: 'offer',
+          visualAction: { type: 'scrollToSection', target: 'pricing-section' },
+          choices: [
+            { id: 'c5', label: 'Xem lại màn hình Demo', next: 'demo' }
+          ]
+        }
+      }
+    });
+
+    window.addEventListener('voice:action', function (event) {
+      var action = event.detail;
+      var statusEl = document.getElementById('demo-status');
+      if (statusEl && action) {
+        statusEl.textContent = 'Hành động nhận từ Voice Agent: ' + action.type + (action.target ? ' (' + action.target + ')' : '');
+      }
+    });
+  </script>
+</body>
+</html>

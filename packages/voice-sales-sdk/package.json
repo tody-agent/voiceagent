@@ -1,0 +1,32 @@
+{
+  "name": "@tody/voice-sales-sdk",
+  "version": "1.0.0",
+  "description": "High-converting AI Voice Sales Assistant and Interactive Demo HUD for landing pages with VieNeu-TTS and 2-way DOM synchronization.",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./sdk": "./sdk/tody-voice-sales.js"
+  },
+  "keywords": [
+    "voice-agent",
+    "ai-sales",
+    "voice-sales-assistant",
+    "landing-page",
+    "vieneu-tts",
+    "viettts",
+    "interactive-demo",
+    "voice-hud"
+  ],
+  "author": "Tody AI Team",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "lucide-react": ">=0.400.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

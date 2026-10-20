@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tody Voice Agent — Standalone HTML Integration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F7F8FA] text-[#09090B] min-h-screen flex flex-col font-sans">
+  <!-- Header -->
+  <header class="border-b border-[#E4E4E7] bg-white/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="font-bold text-lg tracking-tight flex items-center gap-2">
+        <span class="w-8 h-8 rounded-lg bg-[#18181B] text-white flex items-center justify-center text-sm">🎙️</span>
+        SaaS Platform Pro
+      </div>
+      <a href="#pricing" class="h-9 px-4 rounded-lg bg-[#18181B] text-white text-xs font-semibold flex items-center hover:bg-black transition-all">
+        Bắt đầu miễn phí
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="flex-1 max-w-5xl mx-auto px-6 py-16 w-full space-y-16">
+    <section id="hero-section" data-voice-target="hero" class="text-center space-y-4">
+      <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#E4E4E7] text-[#18181B]">
+        Trợ lý giọng nói AI tự động hóa bán hàng
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#09090B] text-balance">
+        Tăng 2.8x tỷ lệ chuyển đổi với Voice Sales Assistant
+      </h1>
+      <p class="text-base text-[#71717A] max-w-2xl mx-auto">
+        Tích hợp trợ lý tư vấn giọng nói tiếng Việt chuẩn Studio, dẫn dắt khách hàng qua 6 giai đoạn bán hàng tự nhiên và đồng bộ với màn hình trình diễn.
+      </p>
+    </section>
+
+    <!-- Interactive Demo Section (Two-Way Sync with Voice) -->
+    <section id="interactive-demo-section" data-voice-target="demo" class="bg-white rounded-2xl border border-[#E4E4E7] p-8 shadow-sm transition-all duration-300">
+      <div class="flex items-center justify-between border-b border-[#E4E4E7] pb-4 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-[#09090B]">Màn hình Trình diễn Tương tác (Interactive Sandbox)</h2>
+          <p class="text-xs text-[#71717A]">Tự động đổi cảnh và làm nổi bật theo lời nói của trợ lý Tody Voice</p>
+        </div>
+        <div id="demo-indicator" class="text-xs font-medium px-3 py-1 rounded-full bg-zinc-100 text-zinc-800">
+          Chờ tương tác...
+        </div>
+      </div>
+
+      <div id="demo-canvas" class="min-h-[220px] rounded-xl bg-zinc-50 border border-dashed border-zinc-200 p-6 flex flex-col items-center justify-center text-center space-y-2">
+        <div class="text-3xl">✨</div>
+        <div id="demo-title" class="font-semibold text-sm text-zinc-900">Tính năng Sẵn sàng</div>
+        <p id="demo-desc" class="text-xs text-zinc-500 max-w-md">Bấm vào trợ lý giọng nói ở góc dưới để bắt đầu trải nghiệm tư vấn và đổi cảnh trực tiếp.</p>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing-section" data-voice-target="offer" class="text-center space-y-6 pt-8">
+      <h2 class="text-2xl font-bold">Bảng giá siêu ưu đãi</h2>
+      <div class="max-w-md mx-auto bg-white rounded-2xl border-2 border-zinc-900 p-8 shadow-lg space-y-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Gói Khởi Nghiệp</span>
+        <div class="text-4xl font-extrabold tabular-nums">0₫ <span class="text-sm font-normal text-zinc-500">/ 14 ngày</span></div>
+        <p class="text-xs text-zinc-600">Đầy đủ tính năng Voice HUD, VieNeu-TTS Studio, và đồng bộ DOM 2 chiều.</p>
+        <button id="cta-button" class="w-full h-11 rounded-xl bg-[#18181B] text-white font-semibold text-sm hover:bg-black transition-all">
+          Đăng ký dùng thử ngay
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- 1. Nhúng Standalone SDK (Shadow DOM & Zero-Dependency) -->
+  <script src="../../packages/voice-sales-sdk/sdk/tody-voice-sales.js"></script>
+
+  <!-- 2. Cấu hình kịch bản giọng nói đa giai đoạn -->
+  <script>
+    window.TodyVoice.init({
+      projectId: 'saas-pro-demo',
+      locale: 'vi-VN',
+      audioBaseUrl: '/audio/vi',
+      inviteDelayMs: 2500,
+      brand: {
+        assistantName: 'Tody Voice',
+        assistantRole: 'Cố vấn Bán hàng AI',
+        inviteTitle: 'Chào bạn, mình là Tody 👋',
+        inviteBody: 'Nghe mình giới thiệu giải pháp tăng chuyển đổi trong 30 giây nhé?',
+        primaryColor: '#18181B',
+        accentColor: '#2563EB'
+      },
+      offer: {
+        productName: 'SaaS Platform Pro',
+        headline: 'Dùng thử 14 ngày miễn phí',
+        primaryCtaLabel: 'Đăng ký trải nghiệm ngay',
+        primaryCtaUrl: '#pricing-section'
+      },
+      nodes: {
+        welcome: {
+          id: 'welcome',
+          audioId: 'welcome',
+          transcript: 'Chào bạn! Mình là Tody. Bạn muốn xem màn trình diễn tính năng hay xem bảng giá ưu đãi dùng thử?',
+          stage: 'greeting',
+          choices: [
+            { id: 'c_demo', label: 'Xem trình diễn Demo ngay', next: 'demo_scene' },
+            { id: 'c_offer', label: 'Xem bảng giá ưu đãi', next: 'offer_scene' }
+          ]
+        },
+        demo_scene: {
+          id: 'demo_scene',
+          audioId: 'demo_scene',
+          transcript: 'Mình đang kích hoạt màn hình Demo để bạn xem khả năng tự động hóa đồng bộ hai chiều nhé!',
+          stage: 'demo',
+          compactDuringDemo: true,
+          visualAction: {
+            type: 'scrollToSection',
+            target: 'interactive-demo-section'
+          },
+          choices: [
+            { id: 'c_offer', label: 'Nhận ưu đãi dùng thử', next: 'offer_scene' },
+            { id: 'c_repeat', label: 'Nghe lại từ đầu', next: 'welcome' }
+          ]
+        },
+        offer_scene: {
+          id: 'offer_scene',
+          audioId: 'offer_scene',
+          transcript: 'Gói dùng thử hoàn toàn miễn phí trong mười bốn ngày! Bạn bấm nút đăng ký bên dưới nhé.',
+          stage: 'offer',
+          visualAction: {
+            type: 'pulseCTA',
+            target: 'pricing-section'
+          },
+          choices: [
+            { id: 'c_demo', label: 'Xem lại Demo', next: 'demo_scene' }
+          ]
+        }
+      }
+    });
+
+    // 3. Lắng nghe sự kiện đồng bộ 2 chiều (DOM Sync Bridge)
+    window.addEventListener('voice:action', (e) => {
+      const action = e.detail;
+      const indicator = document.getElementById('demo-indicator');
+      const title = document.getElementById('demo-title');
+      const desc = document.getElementById('demo-desc');
+
+      if (action.type === 'scrollToSection' || action.type === 'openDemoScene') {
+        indicator.textContent = 'Trợ lý đang trình diễn';
+        indicator.className = 'text-xs font-medium px-3 py-1 rounded-full bg-blue-100 text-blue-800';
+        title.textContent = '⚡ Đang thực thi hành động từ giọng nói';
+        desc.textContent = `Sự kiện: ${action.type} -> Target: ${action.target || action.scene}`;
+      } else if (action.type === 'pulseCTA') {
+        indicator.textContent = 'Mở thẻ ưu đãi';
+        indicator.className = 'text-xs font-medium px-3 py-1 rounded-full bg-emerald-100 text-emerald-800';
+      }
+    });
+  </script>
+</body>
+</html>

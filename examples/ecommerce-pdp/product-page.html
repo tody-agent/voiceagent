@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tody Voice Agent — E-Commerce PDP Shopping Consultant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F8F9FA] text-[#1D1D1F] min-h-screen font-sans">
+  <div class="max-w-4xl mx-auto px-6 py-12">
+    <!-- Breadcrumb -->
+    <div class="text-xs text-zinc-500 mb-6">Trang chủ / Thiết bị âm thanh / Tai nghe Studio Không dây</div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm">
+      <!-- Media Gallery -->
+      <div id="product-gallery" class="space-y-4">
+        <div id="main-image" class="aspect-square bg-zinc-100 rounded-2xl flex items-center justify-center text-6xl border border-zinc-200">
+          🎧
+        </div>
+        <div class="grid grid-cols-4 gap-2">
+          <div class="aspect-square bg-zinc-50 rounded-xl border-2 border-black flex items-center justify-center text-xl">🎧</div>
+          <div class="aspect-square bg-zinc-50 rounded-xl border border-zinc-200 flex items-center justify-center text-xl">🔋</div>
+          <div class="aspect-square bg-zinc-50 rounded-xl border border-zinc-200 flex items-center justify-center text-xl">📦</div>
+          <div class="aspect-square bg-zinc-50 rounded-xl border border-zinc-200 flex items-center justify-center text-xl">🛡️</div>
+        </div>
+      </div>
+
+      <!-- Product Info & Purchasing -->
+      <div class="space-y-6">
+        <div>
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Chính hãng 100%</span>
+          <h1 class="text-2xl font-bold mt-2">Tai Nghe Studio Wireless Pro Max</h1>
+          <p class="text-xs text-zinc-500 mt-1">Đánh giá 4.9/5 (1,248 lượt mua)</p>
+        </div>
+
+        <div class="text-3xl font-extrabold text-zinc-900 tabular-nums">
+          1.890.000₫ <span class="text-sm line-through font-normal text-zinc-400 ml-2">2.500.000₫</span>
+        </div>
+
+        <!-- Color Selector -->
+        <div>
+          <label class="text-xs font-semibold text-zinc-700 block mb-2">Màu sắc</label>
+          <div class="flex gap-2">
+            <button class="px-4 py-2 rounded-xl border-2 border-black text-xs font-medium bg-black text-white">Đen Nhám</button>
+            <button class="px-4 py-2 rounded-xl border border-zinc-200 text-xs font-medium bg-white text-zinc-800">Trắng Bạc</button>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div id="cta-section" data-voice-target="cta" class="pt-4 space-y-3">
+          <button id="add-to-cart-btn" class="w-full h-12 rounded-2xl bg-[#1D1D1F] text-white font-semibold text-sm hover:bg-black transition-all">
+            Thêm vào giỏ hàng
+          </button>
+          <button class="w-full h-12 rounded-2xl bg-zinc-100 text-zinc-800 font-semibold text-sm hover:bg-zinc-200 transition-all">
+            Mua ngay với 1 chạm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standalone SDK -->
+  <script src="../../packages/voice-sales-sdk/sdk/tody-voice-sales.js"></script>
+
+  <script>
+    window.TodyVoice.init({
+      projectId: 'audio-pdp-store',
+      locale: 'vi-VN',
+      audioBaseUrl: '/audio/vi',
+      brand: {
+        assistantName: 'Tody Consultant',
+        assistantRole: 'Tư vấn Viên Âm thanh',
+        inviteTitle: 'Chào bạn, cần tư vấn tai nghe? 🎧',
+        inviteBody: 'Mình có thể giải đáp về thời lượng pin, chất âm và mã giảm giá nhé!',
+        primaryColor: '#1D1D1F',
+        accentColor: '#10B981'
+      },
+      offer: {
+        productName: 'Studio Wireless Pro Max',
+        headline: 'Giảm 25% + Miễn phí vận chuyển hôm nay',
+        primaryCtaLabel: 'Đặt mua với giá 1.890.000₫',
+        primaryCtaUrl: '#cta-section'
+      },
+      nodes: {
+        welcome: {
+          id: 'welcome',
+          audioId: 'welcome',
+          transcript: 'Chào bạn! Mẫu tai nghe Studio Pro Max đang có ưu đãi giảm sáu trăm nghìn. Bạn muốn nghe về chất âm chống ồn hay thời lượng pin bốn mươi tiếng?',
+          stage: 'greeting',
+          choices: [
+            { id: 'c_sound', label: 'Nghe tư vấn chất âm', next: 'sound_specs' },
+            { id: 'c_battery', label: 'Hỏi về thời lượng pin', next: 'battery_specs' }
+          ]
+        },
+        sound_specs: {
+          id: 'sound_specs',
+          audioId: 'sound_specs',
+          transcript: 'Tai nghe trang bị màng loa titan bốn mươi milimet và chống ồn chủ động bốn mươi lăm đề-xi-ben, cách ly tiếng ồn đường phố cực đỉnh.',
+          stage: 'value',
+          choices: [
+            { id: 'c_buy', label: 'Thêm vào giỏ hàng ngay', next: 'buy_close' },
+            { id: 'c_battery', label: 'Xem thời lượng pin', next: 'battery_specs' }
+          ]
+        },
+        battery_specs: {
+          id: 'battery_specs',
+          audioId: 'battery_specs',
+          transcript: 'Pin nghe liên tục bốn mươi tiếng, sạc nhanh mười phút là đủ dùng thêm năm tiếng thoải mái!',
+          stage: 'value',
+          choices: [
+            { id: 'c_buy', label: 'Mua ngay nhận voucher', next: 'buy_close' }
+          ]
+        },
+        buy_close: {
+          id: 'buy_close',
+          audioId: 'buy_close',
+          transcript: 'Mình đã kích hoạt ưu đãi miễn phí ship cho bạn rồi nhé. Bấm nút Thêm vào giỏ hàng ngay thôi!',
+          stage: 'offer',
+          visualAction: { type: 'pulseCTA', target: 'cta-section' },
+          choices: [
+            { id: 'c_repeat', label: 'Nghe lại từ đầu', next: 'welcome' }
+          ]
+        }
+      }
+    });
+
+    window.addEventListener('voice:action', (e) => {
+      if (e.detail?.type === 'pulseCTA') {
+        const btn = document.getElementById('add-to-cart-btn');
+        btn.classList.add('ring-4', 'ring-emerald-400', 'animate-pulse');
+        setTimeout(() => btn.classList.remove('ring-4', 'ring-emerald-400', 'animate-pulse'), 3500);
+      }
+    });
+  </script>
+</body>
+</html>
