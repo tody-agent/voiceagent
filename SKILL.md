@@ -1,6 +1,6 @@
 ---
-name: voice-landing-agent
-description: Scaffolds new landing pages or retrofits existing ones with an AI Voice Sales Assistant, natural Vietnamese voice (VieNeu-TTS / Adam voice), interactive demo sandboxes, and two-way DOM synchronization. Enforces conversion-optimized voice HUD UX (85vw expanded width, 2-line rolling captions, max 2 buttons per step, zero microphone permission friction) and Light-First 85/10/5 aesthetics.
+name: VoiceAgent
+description: Chuyên dùng để hỗ trợ nâng cấp landing page hoặc gian hàng e-commerce tăng tỷ lệ chuyển đổi (CRO) với AI Voice Sales Assistant, kịch bản bán hàng 6 giai đoạn, giọng đọc tiếng Việt tự nhiên VieNeu-TTS (Adam 32 tuổi 48kHz, EBU R128 -16 LUFS), khung HUD 85vw dàn ngang tối đa 2 nút không cần quyền micro, và cơ chế đồng bộ DOM 2 chiều (scrollToSection, openDemoScene, triggerDemoAction, pulseCTA).
 allowed-tools:
   - run_command
   - view_file
@@ -8,7 +8,7 @@ allowed-tools:
   - replace_file_content
 ---
 
-# Voice Landing Agent — AI Voice Sales Experience & Interactive Landing Page Builder
+# VoiceAgent — Chuyên Gia Nâng Cấp Landing Page Tăng Chuyển Đổi Bằng Voice Sales Assistant
 
 Sử dụng skill này khi người dùng muốn:
 1. **Sửa landing page hiện có (Retrofit / Inject Voice Agent)**: Quét cấu trúc DOM, gắn nhãn mục tiêu, tạo kịch bản bán hàng 6 giai đoạn, tổng hợp giọng đọc tiếng Việt VieNeu-TTS, và nhúng khung HUD tư vấn giọng nói đồng bộ với trang.
