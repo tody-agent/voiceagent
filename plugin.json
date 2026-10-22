@@ -1,0 +1,24 @@
+{
+  "name": "voiceagent",
+  "version": "2.0.0",
+  "description": "Nâng cấp landing page và gian hàng e-commerce tăng tỷ lệ chuyển đổi (CRO) với Trợ lý Bán hàng bằng Giọng nói AI, kịch bản 6 giai đoạn và đồng bộ DOM 2 chiều.",
+  "author": "tody-agent",
+  "license": "MIT",
+  "homepage": "https://github.com/tody-agent/voiceagent",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tody-agent/voiceagent.git"
+  },
+  "skills": [
+    {
+      "name": "voiceagent",
+      "path": "SKILL.md",
+      "description": "Nâng cấp hoặc tạo mới landing page với Voice Sales Assistant, VieNeu-TTS Studio và đồng bộ DOM 2 chiều."
+    },
+    {
+      "name": "voice-landing-agent",
+      "path": "skills/voice-landing-agent/SKILL.md",
+      "description": "Voice Landing Agent CRO toolkit"
+    }
+  ]
+}
